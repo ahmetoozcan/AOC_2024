@@ -35,5 +35,5 @@ fn calculate(filename: &str) -> i32 {
 }
 
 fn main() {
-    println!("{}", calculate("src/day_2/input_day_2.txt"));
+    println!("{}", calculate("input_day_2.txt"));
 }
