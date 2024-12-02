@@ -11,7 +11,11 @@ fn is_safe(numbers: Vec<i32>, is_remove: Option<bool>) -> bool {
                 || (num1 - num2).abs() > 3
         {
             if !is_remove.unwrap_or(false) {
-                for i in 0..numbers.len() {
+                for i in if index == 0 {
+                    0..(index + 2)
+                } else {
+                    (index - 1)..(index + 2)
+                } {
                     let mut new_numbers = numbers.clone();
                     new_numbers.remove(i);
 
