@@ -3,47 +3,41 @@ use std::fs::read_to_string;
 fn calculate(filename: &str) -> i32 {
     let mut count: i32 = 0;
 
-    let mut vec: Vec<String> = Vec::new();
-    for line in read_to_string(filename).unwrap().lines() {
-        vec.push(line.into());
-    }
+    let vec: Vec<Vec<char>> = read_to_string(filename)
+        .unwrap()
+        .lines()
+        .map(|c| c.trim().chars().collect())
+        .collect();
 
     for i in 0..vec.len() {
         for j in 0..vec[i].len() {
-            if vec[i].chars().nth(j).unwrap() == 'X' {
+            if vec[i][j] == 'X' {
                 // Could've done better
-                // down vertical
-                if i + 3 < vec.len()
-                    && vec[i + 1].chars().nth(j).unwrap() == 'M'
-                    && vec[i + 2].chars().nth(j).unwrap() == 'A'
-                    && vec[i + 3].chars().nth(j).unwrap() == 'S'
-                {
+
+                // left horizontal
+                if j >= 3 && vec[i][j - 1] == 'M' && vec[i][j - 2] == 'A' && vec[i][j - 3] == 'S' {
                     count += 1;
                 }
 
                 // up vertical
-                if i >= 3
-                    && vec[i - 1].chars().nth(j).unwrap() == 'M'
-                    && vec[i - 2].chars().nth(j).unwrap() == 'A'
-                    && vec[i - 3].chars().nth(j).unwrap() == 'S'
+                if i >= 3 && vec[i - 1][j] == 'M' && vec[i - 2][j] == 'A' && vec[i - 3][j] == 'S' {
+                    count += 1;
+                }
+
+                // down vertical
+                if i + 3 < vec.len()
+                    && vec[i + 1][j] == 'M'
+                    && vec[i + 2][j] == 'A'
+                    && vec[i + 3][j] == 'S'
                 {
                     count += 1;
                 }
 
                 // right horizontal
                 if j + 3 < vec[i].len()
-                    && vec[i].chars().nth(j + 1).unwrap() == 'M'
-                    && vec[i].chars().nth(j + 2).unwrap() == 'A'
-                    && vec[i].chars().nth(j + 3).unwrap() == 'S'
-                {
-                    count += 1;
-                }
-
-                // left horizontal
-                if j >= 3
-                    && vec[i].chars().nth(j - 1).unwrap() == 'M'
-                    && vec[i].chars().nth(j - 2).unwrap() == 'A'
-                    && vec[i].chars().nth(j - 3).unwrap() == 'S'
+                    && vec[i][j + 1] == 'M'
+                    && vec[i][j + 2] == 'A'
+                    && vec[i][j + 3] == 'S'
                 {
                     count += 1;
                 }
@@ -51,9 +45,9 @@ fn calculate(filename: &str) -> i32 {
                 // right down diagonal
                 if i + 3 < vec.len()
                     && j + 3 < vec[i].len()
-                    && vec[i + 1].chars().nth(j + 1).unwrap() == 'M'
-                    && vec[i + 2].chars().nth(j + 2).unwrap() == 'A'
-                    && vec[i + 3].chars().nth(j + 3).unwrap() == 'S'
+                    && vec[i + 1][j + 1] == 'M'
+                    && vec[i + 2][j + 2] == 'A'
+                    && vec[i + 3][j + 3] == 'S'
                 {
                     count += 1;
                 }
@@ -61,9 +55,9 @@ fn calculate(filename: &str) -> i32 {
                 // left down diagonal
                 if i + 3 < vec.len()
                     && j >= 3
-                    && vec[i + 1].chars().nth(j - 1).unwrap() == 'M'
-                    && vec[i + 2].chars().nth(j - 2).unwrap() == 'A'
-                    && vec[i + 3].chars().nth(j - 3).unwrap() == 'S'
+                    && vec[i + 1][j - 1] == 'M'
+                    && vec[i + 2][j - 2] == 'A'
+                    && vec[i + 3][j - 3] == 'S'
                 {
                     count += 1;
                 }
@@ -71,9 +65,9 @@ fn calculate(filename: &str) -> i32 {
                 // right up diagonal
                 if i >= 3
                     && j + 3 < vec[i].len()
-                    && vec[i - 1].chars().nth(j + 1).unwrap() == 'M'
-                    && vec[i - 2].chars().nth(j + 2).unwrap() == 'A'
-                    && vec[i - 3].chars().nth(j + 3).unwrap() == 'S'
+                    && vec[i - 1][j + 1] == 'M'
+                    && vec[i - 2][j + 2] == 'A'
+                    && vec[i - 3][j + 3] == 'S'
                 {
                     count += 1;
                 }
@@ -81,9 +75,9 @@ fn calculate(filename: &str) -> i32 {
                 // left up diagonal
                 if i >= 3
                     && j >= 3
-                    && vec[i - 1].chars().nth(j - 1).unwrap() == 'M'
-                    && vec[i - 2].chars().nth(j - 2).unwrap() == 'A'
-                    && vec[i - 3].chars().nth(j - 3).unwrap() == 'S'
+                    && vec[i - 1][j - 1] == 'M'
+                    && vec[i - 2][j - 2] == 'A'
+                    && vec[i - 3][j - 3] == 'S'
                 {
                     count += 1;
                 }
