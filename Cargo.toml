@@ -1,0 +1,8 @@
+[package]
+name = "AOC_2024"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+count-digits = "0.5.1"
+regex = "1.11.1"
